@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageView emotionView;
     Button happyButton, angryButton, sadButton, relaxButton;
+    Button scanButton;
     private int flag;
 
     private String connectedDeviceName = null;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relaxButton = (Button) findViewById(R.id.relaxButton);
         relaxButton.setOnClickListener(this);
         flag = 0;
+
+        scanButton = (Button) findViewById(R.id.button_scan);
+        scanButton.setOnClickListener(this);
 
         // Get local Bluetooth adapter
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -165,6 +169,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.relaxButton:
                 emotionView.setImageResource(R.drawable.figure_sleeping);
                 break;
+            case R.id.scanButton:
+                Log.d(TAG, "Scan is called");
+                Intent intent = new Intent(this, DeviceListActivity.class);
+                startActivityForResult(intent, REQUEST_CONNECT_DEVICE_SECURE);
+                break;
         }
     }
 
@@ -226,6 +235,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case 'R':
                                 emotionView.setImageResource(R.drawable.figure_sleeping);
+                                break;
+                            case 'N':
+                                emotionView.setImageResource(R.drawable.figure_standing);
                                 break;
                         }
                     }
